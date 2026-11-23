@@ -13,16 +13,28 @@ app.set('views', path.join(import.meta.dirname, 'views'));
 app.use(express.static(path.join(import.meta.dirname, 'public'))); 
 
 app.get('/', async (req, res) => {
-  const customerResult = await pool.query('SELECT count(*) FROM customers');
-  const customerTotal = customerResult.rows[0].count;
+    const customerResult = await pool.query('SELECT count(*) FROM customers');
+    const customerTotal = customerResult.rows[0].count;
 
-  res.render('index', { customerTotal });
+    const revenueResult = await pool.query('SELECT sum(saleamount) FROM sales');
+    const revenue = revenueResult.rows[0].sum;
+
+    const ordersResult = await pool.query('SELECT count(quantity) FROM orders');
+    const ordersTotal = ordersResult.rows[0].count;
+
+    const issuesResult = await pool.query("SELECT count(id) FROM alerts WHERE type = 'issues'");
+    const issuesTotal = issuesResult.rows[0].count;
+
+    const notifResult = await pool.query("SELECT count(id) FROM alerts WHERE type = 'notifications'");
+    const notifAmt = notifResult.rows[0].count;
+
+    res.render('index', { customerTotal, revenue, ordersTotal, issuesTotal, notifAmt });
 });
 
 // temporary route to test the database connection
 app.get('/test-db', async (req, res) => {
-  const result = await pool.query('SELECT count(*) FROM customers');
-  res.json(result.rows[0]);
+    const result = await pool.query('SELECT count(*) FROM customers');
+    res.json(result.rows[0]);
 });
 
 app.listen(3000, () => console.log('Running on http://localhost:3000'));

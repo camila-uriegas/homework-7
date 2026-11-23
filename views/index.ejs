@@ -40,7 +40,7 @@
             <section class="stats">
                 <div class="card" id="card-revenue">
                     <div class="stat-title">Revenue</div>
-                    <div class="stat-value green"><span class="revenue-amt"><!--$48,250--></span></div>
+                    <div class="stat-value green"><span class="revenue-amt"><%= revenue %></span></div>
                 </div>
                 <div class="card" id="card-customers">
                     <div class="stat-title">Customers</div>
@@ -48,11 +48,11 @@
                 </div>
                 <div class="card" id="card-orders">
                     <div class="stat-title">Orders</div>
-                    <div class="stat-value orange"><span id="orders-amt"><!--342--></span></div>
+                    <div class="stat-value orange"><span id="orders-amt"><%= ordersTotal %></span></div>
                 </div>
                 <div class="card" id="card-issues">
                     <div class="stat-title">Issues</div>
-                    <div class="stat-value red"><span id="issues-amt"><!--12--></span></div>
+                    <div class="stat-value red"><span id="issues-amt"><%= issuesTotal %></span></div>
                 </div>
             </section>
 
@@ -68,7 +68,7 @@
 
                             <div id="tab-overview">
                                 <h3>Monthly Performance</h3>
-                                <p>Revenue is currently at <strong class="revenue-amt"> <!--$48,250--></strong></p>
+                                <p>Revenue is currently at <strong class="revenue-amt"><%= revenue %></strong></p>
                             </div>
 
                             <div id="tab-sales">
@@ -162,7 +162,7 @@
 
                             <h3>Notifications</h3>
                             <div>
-                                <p>You have <span id="notification-num"><!-- 3--></span> new notifications.</p>
+                                <p>You have <span id="notification-num"><%= notifAmt %></span> new notifications.</p>
                                 <ol id="notifications-list">
                                     <!-- <li>A new shipment is expected to arrive on Sep 30, 2026</li>
                                     <li>There are 12 outstanding issues with last week's orders </li>
