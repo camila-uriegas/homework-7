@@ -4,7 +4,6 @@ $(function () {
     // *********************************************************************
 
     let revenueAmt = "$35,800";
-    let customerNum = "1,284";
     let ordersAmt = "342";
     let issuesAmt = "12";
     let username = "UTRGV Vaqueros";
@@ -101,11 +100,8 @@ $(function () {
     const userNameObj = $("#username");
     userNameObj.append(`${username}`);
 
-    const cardRevenue = $(".revenue-amt");   // this must select the class .revenue-amt, which will affect two elements. So count this 2 times.
+    const cardRevenue = $(".revenue-amt");
     cardRevenue.append(`${revenueAmt}`);
-
-    const cardCustomers = $("#customer-num");
-    cardCustomers.append(`${customerNum}`);
 
     const cardOrders = $("#orders-amt");
     cardOrders.append(`${ordersAmt}`);

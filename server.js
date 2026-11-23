@@ -12,8 +12,11 @@ app.set('views', path.join(import.meta.dirname, 'views'));
 // makes any files in public available 
 app.use(express.static(path.join(import.meta.dirname, 'public'))); 
 
-app.get('/', (req, res) => {
-  res.render('index');
+app.get('/', async (req, res) => {
+  const customerResult = await pool.query('SELECT count(*) FROM customers');
+  const customerTotal = customerResult.rows[0].count;
+
+  res.render('index', { customerTotal });
 });
 
 // temporary route to test the database connection
