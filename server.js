@@ -28,7 +28,24 @@ app.get('/', async (req, res) => {
     const notifResult = await pool.query("SELECT count(id) FROM alerts WHERE type = 'notifications'");
     const notifAmt = notifResult.rows[0].count;
 
-    res.render('index', { customerTotal, revenue, ordersTotal, issuesTotal, notifAmt });
+    const salesResult = await pool.query(`
+        SELECT products.name, sales.quantity, sales.saleamount
+        FROM sales
+        LEFT JOIN products ON sales.productid = products.id
+        ORDER BY sales.id ASC
+    `);
+    const sales = salesResult.rows;
+
+    const issuesListResult = await pool.query("SELECT * FROM alerts WHERE type = 'issues'");
+    const issues = issuesListResult.rows;
+
+    const notificationsResult = await pool.query("SELECT * FROM alerts WHERE type = 'notifications'");
+    const notifications = notificationsResult.rows;
+
+    const tasksResult = await pool.query("SELECT * FROM alerts WHERE type = 'tasks'");
+    const tasks = tasksResult.rows;
+
+    res.render('index', { customerTotal, revenue, ordersTotal, issuesTotal, notifAmt, sales, issues, notifications, tasks });
 });
 
 // temporary route to test the database connection
