@@ -6,6 +6,15 @@ import pg from 'pg';
 const app = express();
 const pool = new pg.Pool();
 
+const fmtNumber = (n) => Number(n).toLocaleString('en-US');
+const fmtMoney = (n) =>
+  Number(n).toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+});
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(import.meta.dirname, 'views'));
 
@@ -34,7 +43,7 @@ app.get('/', async (req, res) => {
         LEFT JOIN products ON sales.productid = products.id
         ORDER BY sales.id ASC
     `);
-    const sales = salesResult.rows;
+    const sales = salesResult.rows.map(s => ({ ...s, saleamount: fmtMoney(s.saleamount) }));
 
     const issuesListResult = await pool.query("SELECT * FROM alerts WHERE type = 'issues'");
     const issues = issuesListResult.rows;
@@ -56,8 +65,9 @@ app.get('/', async (req, res) => {
     );
     const customers = customersResult.rows;
 
-    res.render('index', { customerTotal, revenue, ordersTotal, issuesTotal, notifAmt, sales, 
-        issues, notifications, tasks, customers, page, totalPages });
+    res.render('index', { customerTotal: fmtNumber(customerTotal), revenue: fmtMoney(revenue), 
+        ordersTotal: fmtNumber(ordersTotal), issuesTotal: fmtNumber(issuesTotal), notifAmt: fmtNumber(notifAmt), 
+        sales, issues, notifications, tasks, customers, page, totalPages });
 });
 
 // temporary route to test the database connection
