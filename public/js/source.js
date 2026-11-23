@@ -5,26 +5,26 @@ $(function () {
 
     let username = "UTRGV Vaqueros";
 
-    const customers = [
-        {
-            "name": "Alice Johnson",
-            "email": "alice@example.com",
-            "status": "Active",
-            "joined": "09/10/2026"
-        },
-        {
-            "name": "Robert Smith",
-            "email": "robert@example.com",
-            "status": "Pending",
-            "joined": "09/12/2026"
-        },
-        {
-            "name": "Maria Garcia",
-            "email": "maria@example.com",
-            "status": "Active",
-            "joined": "09/15/2026"
-        }
-    ];
+    // const customers = [
+    //     {
+    //         "name": "Alice Johnson",
+    //         "email": "alice@example.com",
+    //         "status": "Active",
+    //         "joined": "09/10/2026"
+    //     },
+    //     {
+    //         "name": "Robert Smith",
+    //         "email": "robert@example.com",
+    //         "status": "Pending",
+    //         "joined": "09/12/2026"
+    //     },
+    //     {
+    //         "name": "Maria Garcia",
+    //         "email": "maria@example.com",
+    //         "status": "Active",
+    //         "joined": "09/15/2026"
+    //     }
+    // ];
 
     const sales = [
         {
@@ -65,30 +65,30 @@ $(function () {
     const userNameObj = $("#username");
     userNameObj.append(`${username}`);
 
-    const tableBody = $("#customerTableBody");
+    // const tableBody = $("#customerTableBody");
 
-    customers.forEach(customer => {
-        const row = $("<tr>");
+    // customers.forEach(customer => {
+    //     const row = $("<tr>");
 
-        var statusClass;
-            if (customer.status.toLowerCase() === "active"){
-                statusClass = "status-active";
-            } else {
-                statusClass = "status-pending";
-            }
-        row.html(`
-            <td>${customer.name}</td>
-            <td>${customer.email}</td>
-            <td>
-                <span class="status ${statusClass}">
-                    ${customer.status}
-                </span>
-            </td>
-            <td>${customer.joined}</td>
-        `);
+    //     var statusClass;
+    //         if (customer.status.toLowerCase() === "active"){
+    //             statusClass = "status-active";
+    //         } else {
+    //             statusClass = "status-pending";
+    //         }
+    //     row.html(`
+    //         <td>${customer.name}</td>
+    //         <td>${customer.email}</td>
+    //         <td>
+    //             <span class="status ${statusClass}">
+    //                 ${customer.status}
+    //             </span>
+    //         </td>
+    //         <td>${customer.joined}</td>
+    //     `);
 
-        tableBody.append(row);
-    });
+    //     tableBody.append(row);
+    // });
 
    
 

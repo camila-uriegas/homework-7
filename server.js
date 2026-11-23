@@ -45,7 +45,19 @@ app.get('/', async (req, res) => {
     const tasksResult = await pool.query("SELECT * FROM alerts WHERE type = 'tasks'");
     const tasks = tasksResult.rows;
 
-    res.render('index', { customerTotal, revenue, ordersTotal, issuesTotal, notifAmt, sales, issues, notifications, tasks });
+    const pageSize = 10;
+    const page = Math.max(parseInt(req.query.page) || 1, 1);
+    const offset = (page - 1) * pageSize;
+    const totalPages = Math.ceil(Number(customerTotal) / pageSize);
+
+    const customersResult = await pool.query(
+        'SELECT * FROM customers ORDER BY id LIMIT $1 OFFSET $2',
+        [pageSize, offset]
+    );
+    const customers = customersResult.rows;
+
+    res.render('index', { customerTotal, revenue, ordersTotal, issuesTotal, notifAmt, sales, 
+        issues, notifications, tasks, customers, page, totalPages });
 });
 
 // temporary route to test the database connection

@@ -204,3 +204,8 @@ th {
     pointer-events: none;
     opacity: 0.4;
 }
+
+.status-inactive {
+    background: #eceff1;
+    color: #607d8b;
+}

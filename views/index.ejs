@@ -99,7 +99,7 @@
                     </section>
 
                     
-                    <section class="panel">
+                    <section class="panel" id="customers">
                         <h2>Recent Customers</h2>
                         <table id="customerTable">
                             <thead>
@@ -112,27 +112,21 @@
                             </thead>
 
                             <tbody id="customerTableBody">
-                                <!-- <tr>
-                                    <td>Alice Johnson</td>
-                                    <td>alice@example.com</td>
-                                    <td><span class="status status-active">Active</span></td>
-                                    <td>09/10/2026</td>
-                                </tr>
+                                <% customers.forEach(c => { %>
                                 <tr>
-                                    <td>Robert Smith</td>
-                                    <td>robert@example.com</td>
-                                    <td><span class="status status-pending">Pending</span></td>
-                                    <td>09/12/2026</td>
+                                    <td><%= c.name %></td>
+                                    <td><%= c.email %></td>
+                                    <td><span class="status status-<%= c.status %>"><%= c.status %></span></td>
+                                    <td><%= new Date(c.datejoined).toLocaleDateString('en-US') %></td>
                                 </tr>
-
-                                <tr>
-                                    <td>Maria Garcia</td>
-                                    <td>maria@example.com</td>
-                                    <td><span class="status status-active">Active</span></td>
-                                    <td>09/15/2026</td>
-                                </tr> -->
+                                <% }); %>
                             </tbody>
-                        </table>                        
+                        </table> 
+                            <div class="pagination">
+                                <a class="<%= page <= 1 ? 'disabled' : '' %>" href="/?page=<%= page - 1 %>#customers">Prev</a>
+                                <span>Page <%= page %> of <%= totalPages %></span>
+                                <a class="<%= page >= totalPages ? 'disabled' : '' %>" href="/?page=<%= page + 1 %>#customers">Next</a>
+                            </div>                       
                     </section>
                 </div>
 
